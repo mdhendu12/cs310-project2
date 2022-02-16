@@ -26,8 +26,32 @@ public class Database {
         
         // INSERT YOUR CODE HERE
         
-        return result;
+        String query;
+        query = "SELECT * FROM section WHERE termid=? AND subjectid=? AND num=?";
+        ResultSetMetaData metadata;
+        ResultSet resultset = null;
         
+        String key, value;
+        
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            
+            pstmt.setInt(1, termid);
+            pstmt.setString(2, subjectid);
+            pstmt.setString(3, num);
+            
+            boolean hasresults = pstmt.execute();
+            
+            if( hasresults ) {
+                resultset = pstmt.getResultSet();
+                metadata = resultset.getMetaData();
+                result = getResultSetAsJSON(resultset);
+            }
+                           
+        }
+        catch (Exception e) { e.printStackTrace(); }
+        
+        return result;
     }
     
     public int register(int studentid, int termid, int crn) {
@@ -65,6 +89,10 @@ public class Database {
         String result = null;
         
         // INSERT YOUR CODE HERE
+        
+        ResultSet resultset = null;
+        
+        String query = "SELECT * FROM section WHERE studentid = ? ";
         
         return result;
         
