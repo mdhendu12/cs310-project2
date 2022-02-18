@@ -26,27 +26,26 @@ public class Database {
         
         // INSERT YOUR CODE HERE
         
-        String query;
-        query = "SELECT * FROM section WHERE termid=? AND subjectid=? AND num=?";
-        ResultSetMetaData metadata;
+        String query = "SELECT * FROM section WHERE termid=? AND subjectid=? AND num=?";
         ResultSet resultset = null;
-        
-        String key, value;
-        
+        boolean hasresults;
+                
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
             
-            pstmt.setInt(1, termid);
-            pstmt.setString(2, subjectid);
-            pstmt.setString(3, num);
+            // parameterize the queries
+            pstmt.setInt(1, termid);                    
+            pstmt.setString(2, subjectid);              
+            pstmt.setString(3, num);                    
             
-            boolean hasresults = pstmt.execute();
+            hasresults = pstmt.execute(); // returns true if search has results
             
-            if( hasresults ) {
+            if ( hasresults ) {
                 resultset = pstmt.getResultSet();
-                metadata = resultset.getMetaData();
-                result = getResultSetAsJSON(resultset);
+                result = getResultSetAsJSON(resultset); // JSON string of resultset stored in result
             }
+            
+            pstmt.close();
                            
         }
         catch (Exception e) { e.printStackTrace(); }
@@ -60,6 +59,26 @@ public class Database {
         
         // INSERT YOUR CODE HERE
         
+        String query = "INSERT INTO registration (studentid, termid, crn) VALUES (?, ?, ?)";
+        boolean hasresults;
+        ResultSet resultset;
+        
+        try {
+            
+            PreparedStatement pstUpdate = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            
+            // parameterize each query
+            pstUpdate.setInt(1, studentid);
+            pstUpdate.setInt(2, termid);
+            pstUpdate.setInt(3, crn);
+                        
+            result = pstUpdate.executeUpdate(); // number of rows added stores in result
+            pstUpdate.close();
+            
+        }
+        catch (Exception e) { e.printStackTrace(); }
+
+        
         return result;
         
     }
@@ -69,6 +88,24 @@ public class Database {
         int result = 0;
         
         // INSERT YOUR CODE HERE
+        
+        String query = "DELETE FROM registration WHERE studentid=? AND termid=? AND crn=?";
+        
+        try {
+            
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            
+            // parameterize the queries
+            pstmt.setInt(1, studentid);
+            pstmt.setInt(2, termid);
+            pstmt.setInt(3, crn);
+            
+            result = pstmt.executeUpdate();  // stores rows affected
+            
+            pstmt.close();
+            
+        }
+        catch (Exception e) { e.printStackTrace(); }
         
         return result;
         
@@ -80,6 +117,23 @@ public class Database {
         
         // INSERT YOUR CODE HERE
         
+        String query = "DELETE FROM registration WHERE studentid=? AND termid=?";
+        boolean hasresults;
+        
+        try {
+            
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            
+            // parameterize query
+            pstmt.setInt(1, studentid);
+            pstmt.setInt(2, termid);
+            
+            result = pstmt.executeUpdate();     // returns rows affected
+            
+            pstmt.close();
+        }
+        catch (Exception e) { e.printStackTrace(); }
+        
         return result;
         
     }
@@ -90,9 +144,29 @@ public class Database {
         
         // INSERT YOUR CODE HERE
         
+        String query = "SELECT * FROM registration JOIN section ON registration.crn=section.crn AND studentid=? AND registration.termid=?";
         ResultSet resultset = null;
-        
-        String query = "SELECT * FROM section WHERE studentid = ? ";
+        boolean hasresults;
+                
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            
+            // parameterize the query
+            pstmt.setInt(1, studentid);
+            pstmt.setInt(2, termid);
+            
+            hasresults = pstmt.execute();   // true if query has results
+            
+            // resultset is created from pstmt, passed to 'getResult...' and stored into result
+            if ( hasresults ) {
+                resultset = pstmt.getResultSet();
+                result = getResultSetAsJSON(resultset);
+            }
+            
+            pstmt.close();
+                           
+        }
+        catch (Exception e) { e.printStackTrace(); }
         
         return result;
         
@@ -158,7 +232,7 @@ public class Database {
         
             try {
 
-                String url = "jdbc:mysql://" + a + "/jsu_sp22_v1?autoReconnect=true&useSSL=false&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=America/Chicago";
+                String url = "jdbc:mysql://" + a + "/jsu_sp22_v1?autoReconnect=true&useSSL=false&zeroDateTimeBehavior=EXCEPTION&serverTimezone=America/Chicago";
                 // System.err.println("Connecting to " + url + " ...");
 
                 c = DriverManager.getConnection(url, u, p);
