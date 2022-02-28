@@ -5,12 +5,12 @@ import java.util.HashMap;
 
 public class Badge 
 {
-    private String id, description; 
+    private String id, description;
     
- public Badge(HashMap<String, String> params)
+ public Badge(HashMap<String, String>params)
  {
      this.id = params.get("id");
-     this.description= params.get("description"); 
+     this.description = params.get("description");
  }
  
  public String getId()
@@ -22,4 +22,4 @@ public class Badge
  {
      return description;          
  }
-}
+ }
