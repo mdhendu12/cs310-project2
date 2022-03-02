@@ -7,7 +7,7 @@ public class Badge
 {
     private String id, description;
     
- public Badge(HashMap<String, String>params)
+ public Badge(HashMap<String, String> params)
  {
      this.id = params.get("id");
      this.description = params.get("description");
