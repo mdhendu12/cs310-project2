@@ -1,5 +1,6 @@
 package edu.jsu.mcis.cs310.tas_sp22;
 import java.sql.*;
+import java.util.HashMap;
 
 public class TASDatabase {
     
@@ -15,6 +16,34 @@ public class TASDatabase {
         
         this.connection = openConnection(username, password, address);  // establish connection to sql server
         
+    }
+    
+    public Punch getPunch(int punchID) {
+        Punch punch = null;
+        String query = "SELECT * FROM event e WHERE id=?";
+        boolean hasresults;
+        ResultSet resultset = null;
+        ResultSetMetaData rsmd = null;
+        HashMap<String, String> hm = new HashMap<String, String>();
+        
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, punchID);
+            
+            hasresults = pstmt.execute();
+            if (hasresults) {
+                resultset = pstmt.getResultSet();
+                resultset.next();
+                rsmd = resultset.getMetaData();
+                for (int i = 1; i <= 5; i++) {
+                    hm.put(rsmd.getColumnName(i), resultset.getString(i));
+                }
+                punch = new Punch(hm);
+            }
+        }
+        catch (Exception e) { e.printStackTrace(); }
+        
+        return punch;
     }
     
     private Connection openConnection(String u, String p, String a) {
