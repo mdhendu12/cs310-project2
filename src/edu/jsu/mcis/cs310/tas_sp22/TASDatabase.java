@@ -19,6 +19,34 @@ public class TASDatabase {
         
     }
     
+    public Punch getPunch(int punchID) {
+        Punch punch = null;
+        String query = "SELECT * FROM event e WHERE id=?";
+        boolean hasresults;
+        ResultSet resultset = null;
+        ResultSetMetaData rsmd = null;
+        HashMap<String, String> hm = new HashMap<String, String>();
+        
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, punchID);
+            
+            hasresults = pstmt.execute();
+            if (hasresults) {
+                resultset = pstmt.getResultSet();
+                resultset.next();
+                rsmd = resultset.getMetaData();
+                for (int i = 1; i <= 5; i++) {
+                    hm.put(rsmd.getColumnName(i), resultset.getString(i));  // key = table column header; value is row result
+                }
+                punch = new Punch(hm);  // new Punch object created with hashmap
+            }
+        }
+        catch (Exception e) { e.printStackTrace(); }
+        
+        return punch;
+    }
+    
     private Connection openConnection(String u, String p, String a) {
         
         Connection c = null;
