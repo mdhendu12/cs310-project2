@@ -22,4 +22,12 @@ public class Badge
  {
      return description;          
  }
+ 
+ @Override
+ public String toString()
+ {
+     StringBuilder result =  new StringBuilder(); 
+     result.append("#").append(id).append(" (").append(description).append(")"); 
+     return result.toString();
+ }
  }
