@@ -265,7 +265,7 @@ public class TASDatabase {
     
     }
     
-        public Employee getemployee(Badge badgeID) {
+        public Employee getEmployee(Badge badgeID) {
         
         Employee employee = null;
         String ID = badgeID.getId();
