@@ -121,46 +121,7 @@ public class TASDatabase {
         catch (Exception e) { e.printStackTrace(); }
         return outputBadge; 
     }
-    
-     public Employee getEmployee(String id)
-    {
-        Employee outputEmployee = null; 
-        
-        String description = null; 
-        
-        String query = null; 
-        ResultSet resultset = null; 
-        boolean hasresult;
-        
-        try 
-        {
-            if (connection.isValid(0))
-            {
-                query = "SELECT * FROM badge WHERE id=?"; 
-                PreparedStatement pstmt = connection.prepareStatement(query);
-                pstmt.setString(1, id);
-                hasresult = pstmt.execute(); 
-                   
-                if (hasresult) 
-                {
-                    resultset = pstmt.getResultSet(); 
-                    resultset.first(); 
-                    
-                    id = resultset.getString("id"); 
-                    description = resultset.getString("description"); 
-                    
-                    HashMap<String, String> params = new HashMap<>(); 
-                    params.put ("id",id); 
-                    params.put ("description", description);
-                    
-                    outputEmployee = new Employee(params); 
-                }
-            }
-        }
-        catch (Exception e) { e.printStackTrace(); }
-        return outputEmployee; 
-    }
- 
+   
     public Shift getShift(int id) {
         
         Shift shift = null;
@@ -255,6 +216,89 @@ public class TASDatabase {
         
         catch (Exception e) { e.printStackTrace(); }
         return shift;
+        
+    }
+    public Employee getEmployee(int id) {
+        
+        Employee employee = null;
+        
+        String description = null;
+        int roundinterval, graceperiod, dockpenalty;
+        LocalTime shiftstart, shiftstop, lunchstart, lunchstop = null;
+        
+        String query = null;
+        ResultSet resultset = null;
+        boolean hasresults;
+        
+        try {
+            
+            if ( connection.isValid(0) ) {
+                
+                query = "SELECT * FROM shift WHERE id=?";
+                PreparedStatement pstmt = connection.prepareStatement(query);
+                pstmt.setInt(1, id);
+                hasresults = pstmt.execute();
+                
+                if ( hasresults ) {
+               
+                    resultset = pstmt.getResultSet();
+                    resultset.first();
+                    
+                    id = resultset.getInt("id");
+                    description = resultset.getString("description");
+                    
+                    HashMap<String, Integer> integers = new HashMap<>();
+                    integers.put("id", id);
+                    
+                    HashMap<String, String> strings = new HashMap<>(); 
+                    strings.put("description", description);
+                    
+                    employee = new Employee(strings, integers);
+                                        
+                }
+                
+            }
+        }
+        
+        catch (Exception e) { e.printStackTrace(); }
+        return employee; 
+    
+    }
+    
+        public Employee getemployee(Badge badgeID) {
+        
+        Employee employee = null;
+        String ID = badgeID.getId();
+        int employeeID;
+        String query = null;
+        ResultSet resultset = null;
+        PreparedStatement pstmt = null;
+        boolean hasresults;
+        
+        try{
+            if (connection.isValid(0)) {
+                
+                query = "SELECT * FROM employee WHERE badgeid = ?";
+                pstmt = connection.prepareStatement(query);
+                pstmt.setString(1, ID);
+                hasresults = pstmt.execute();
+                
+                if (hasresults) {
+                    
+                    resultset = pstmt.getResultSet();
+                    
+                    while(resultset.next()) {
+                        
+                        employeeID = resultset.getInt("employeeID");
+                        employee = getEmployee(employeeID);
+                        
+                    }
+                }  
+            }
+        }
+        
+        catch (Exception e) { e.printStackTrace(); }
+        return employee;
         
     }
 }
