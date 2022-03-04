@@ -221,5 +221,40 @@ public class TASDatabase {
     
     }
     
+        public Shift getShift(Badge badgeID) {
+        
+        Shift shift = null;
+        String ID = badgeID.getId();
+        int shiftID;
+        String query = null;
+        ResultSet resultset = null;
+        PreparedStatement pstmt = null;
+        boolean hasresults;
+        
+        try{
+            if (connection.isValid(0)) {
+                
+                query = "SELECT * FROM employee WHERE badgeid = ?";
+                pstmt = connection.prepareStatement(query);
+                pstmt.setString(1, ID);
+                hasresults = pstmt.execute();
+                
+                if (hasresults) {
+                    
+                    resultset = pstmt.getResultSet();
+                    
+                    while(resultset.next()) {
+                        
+                        shiftID = resultset.getInt("shiftid");
+                        shift = getShift(shiftID);
+                        
+                    }
+                }  
+            }
+        }
+        
+        catch (Exception e) { e.printStackTrace(); }
+        return shift;
+        
+    }
 }
-
