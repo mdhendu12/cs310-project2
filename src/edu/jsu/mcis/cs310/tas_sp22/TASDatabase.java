@@ -86,6 +86,39 @@ public class TASDatabase {
     public Badge getBadge(String id)
     {
         Badge outputBadge = null; 
+        
+        String description = null; 
+        
+        String query = null; 
+        ResultSet resultset = null; 
+        boolean hasresult;
+        
+        try 
+        {
+            if (connection.isValid(0))
+            {
+                query = "SELECT * FROM badge WHERE id=?"; 
+                PreparedStatement pstmt = connection.prepareStatement(query);
+                pstmt.setString(1, id);
+                hasresult = pstmt.execute(); 
+                   
+                if (hasresult) 
+                {
+                    resultset = pstmt.getResultSet(); 
+                    resultset.first(); 
+                    
+                    id = resultset.getString("id"); 
+                    description = resultset.getString("description"); 
+                    
+                    HashMap<String, String> params = new HashMap<>(); 
+                    params.put ("id",id); 
+                    params.put ("description", description);
+                    
+                    outputBadge = new Badge(params); 
+                }
+            }
+        }
+        catch (Exception e) { e.printStackTrace(); }
         return outputBadge; 
     }
     
