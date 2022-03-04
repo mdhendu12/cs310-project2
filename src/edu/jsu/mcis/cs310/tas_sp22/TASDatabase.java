@@ -52,5 +52,12 @@ public class TASDatabase {
         catch (Exception e) { e.printStackTrace(); }
         
     }
+    public Badge getBadge(String id)
+    {
+        Badge outputBadge = null; 
+        return outputBadge; 
+    }
+    
+    
     
 }
