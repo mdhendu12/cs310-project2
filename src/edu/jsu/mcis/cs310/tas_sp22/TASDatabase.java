@@ -1,5 +1,6 @@
 package edu.jsu.mcis.cs310.tas_sp22;
 import java.sql.*;
+import java.time.LocalTime;
 import java.util.HashMap;
 
 public class TASDatabase {
@@ -82,4 +83,72 @@ public class TASDatabase {
         
     }
     
+    public Badge getBadge(String id)
+    {
+        Badge outputBadge = null; 
+        return outputBadge; 
+    }
+    
+ 
+    public Shift getShift(int id) {
+        
+        Shift shift = null;
+        
+        String description = null;
+        int roundinterval, graceperiod, dockpenalty;
+        LocalTime shiftstart, shiftstop, lunchstart, lunchstop = null;
+        
+        String query = null;
+        ResultSet resultset = null;
+        boolean hasresults;
+        
+        try {
+            
+            if ( connection.isValid(0) ) {
+                
+                query = "SELECT * FROM shift WHERE id=?";
+                PreparedStatement pstmt = connection.prepareStatement(query);
+                pstmt.setInt(1, id);
+                hasresults = pstmt.execute();
+                
+                if ( hasresults ) {
+               
+                    resultset = pstmt.getResultSet();
+                    resultset.first();
+                    
+                    id = resultset.getInt("id");
+                    description = resultset.getString("description");
+                    shiftstart = resultset.getTimestamp("shiftstart").toLocalDateTime().toLocalTime();
+                    shiftstop = resultset.getTimestamp("shiftstop").toLocalDateTime().toLocalTime();
+                    roundinterval = resultset.getInt("roundinterval");
+                    graceperiod = resultset.getInt("graceperiod");
+                    dockpenalty = resultset.getInt("dockpenalty");
+                    lunchstart = resultset.getTimestamp("lunchstart").toLocalDateTime().toLocalTime();
+                    lunchstop = resultset.getTimestamp("lunchstop").toLocalDateTime().toLocalTime();
+                    
+                    HashMap<String, Integer> integers = new HashMap<>();
+                    integers.put("id", id);
+                    integers.put("roundinterval", roundinterval);
+                    integers.put("graceperiod", graceperiod);
+                    integers.put("dockpenalty", dockpenalty);
+                    
+                    HashMap<String, LocalTime> localtimes = new HashMap<>();
+                    localtimes.put("shiftstart", shiftstart);
+                    localtimes.put("shiftstop", shiftstop);
+                    localtimes.put("lunchstart", lunchstart);
+                    localtimes.put("lunchstop", lunchstop);
+                    
+                    shift = new Shift(description, integers, localtimes);
+                                        
+                }
+                
+            }
+        }
+        
+        catch (Exception e) { e.printStackTrace(); }
+        return shift; 
+    
+    }
+    
 }
+
