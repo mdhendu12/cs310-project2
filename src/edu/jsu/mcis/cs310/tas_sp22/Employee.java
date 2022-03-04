@@ -4,15 +4,16 @@ import java.util.HashMap;
 
 public class Employee 
 {
-    private String id, description; 
+    private String description; 
+    private int id; 
     
- public Employee(HashMap<String, String> params)
+ public Employee(HashMap<String, String> params, HashMap<String, Integer> larams)
  {
-     this.id = params.get("id");
+     this.id = larams.get("id");
      this.description= params.get("description"); 
  }
  
- public String getId()
+ public Integer getId()
  {
      return id;
  }
