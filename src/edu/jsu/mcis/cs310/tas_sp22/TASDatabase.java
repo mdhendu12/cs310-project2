@@ -36,9 +36,9 @@ public class TASDatabase {
                 resultset.next();
                 rsmd = resultset.getMetaData();
                 for (int i = 1; i <= 5; i++) {
-                    hm.put(rsmd.getColumnName(i), resultset.getString(i));
+                    hm.put(rsmd.getColumnName(i), resultset.getString(i));  // key = table column header; value is row result
                 }
-                punch = new Punch(hm);
+                punch = new Punch(hm);  // new Punch object created with hashmap
             }
         }
         catch (Exception e) { e.printStackTrace(); }
