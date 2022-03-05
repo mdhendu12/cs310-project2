@@ -234,7 +234,7 @@ public class TASDatabase {
             
             if ( connection.isValid(0) ) {
                 
-                query = "SELECT * FROM shift WHERE id=?";
+                query = "SELECT * FROM employee WHERE id=?";
                 PreparedStatement pstmt = connection.prepareStatement(query);
                 pstmt.setInt(1, id);
                 hasresults = pstmt.execute();
