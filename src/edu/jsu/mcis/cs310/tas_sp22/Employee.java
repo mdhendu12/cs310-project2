@@ -28,7 +28,7 @@ public class Employee
      return id;
  }
  
- public int getEmployee()
+ public int getEmployeetypeid()
  {
      return employeetypeid;
  }
