@@ -6,15 +6,15 @@ import java.util.HashMap;
 public class Employee 
 {
     private String badge, first, middle, last; 
-    private int id, employeetypeid, department, shift; 
+    private int id, employeetypeid, departmentid, shiftid; 
     private LocalTime active, inactive; 
     
  public Employee(HashMap<String, String> s, HashMap<String, Integer> i, HashMap<String, LocalTime> l)
  {
      this.id = i.get("id");
      this.employeetypeid = i.get("employeetypeid");
-     this.department = i.get("department"); 
-     this.shift = i.get("shift"); 
+     this.departmentid = i.get("department"); 
+     this.shiftid = i.get("shift"); 
      this.badge = s.get("badge"); 
      this.first = s.get("fist"); 
      this.middle = s.get("middle"); 
@@ -33,14 +33,14 @@ public class Employee
      return employeetypeid;
  }
  
- public int getDepartment()
+ public int getDepartmentid()
  {
-     return department; 
+     return departmentid; 
  }
  
- public int getShift()
+ public int getShiftid()
  {
-     return shift;
+     return shiftid;
  }
  
  public String getBadge()
@@ -80,7 +80,7 @@ public class Employee
      StringBuilder result =  new StringBuilder(); 
      result.append("#").append(id).append(" (").append(last).append(" ").append(first);
      result.append(" ").append(middle).append(") : ").append(employeetypeid).append(", : ");
-     result.append(department).append(", : ").append(shift).append(", : ").append(active); 
+     result.append(departmentid).append(", : ").append(shiftid).append(", : ").append(active); 
      result.append(inactive).append(","); 
      
      return result.toString();
