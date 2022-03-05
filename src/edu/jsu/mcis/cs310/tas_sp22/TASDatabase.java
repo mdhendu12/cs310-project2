@@ -2,6 +2,7 @@ package edu.jsu.mcis.cs310.tas_sp22;
 import java.sql.*;
 import java.time.LocalTime;
 import java.util.HashMap;
+import java.time.LocalDateTime;
 
 public class TASDatabase {
     
@@ -222,10 +223,9 @@ public class TASDatabase {
         
         Employee employee = null;
         
-        String description = null;
-        int roundinterval, graceperiod, dockpenalty;
-        LocalTime shiftstart, shiftstop, lunchstart, lunchstop = null;
-        
+        String badge, first, last, middle;
+        LocalTime active, inactive = null; 
+        int employeeid, department, shift; 
         String query = null;
         ResultSet resultset = null;
         boolean hasresults;
@@ -234,7 +234,7 @@ public class TASDatabase {
             
             if ( connection.isValid(0) ) {
                 
-                query = "SELECT * FROM shift WHERE id=?";
+                query = "SELECT * FROM employee WHERE id=?";
                 PreparedStatement pstmt = connection.prepareStatement(query);
                 pstmt.setInt(1, id);
                 hasresults = pstmt.execute();
@@ -245,15 +245,33 @@ public class TASDatabase {
                     resultset.first();
                     
                     id = resultset.getInt("id");
-                    description = resultset.getString("description");
+                    employeeid = resultset.getInt("employeeid"); 
+                    department = resultset.getInt("department"); 
+                    shift = resultset.getInt("shift"); 
+                    active = resultset.getTimestamp("active").toLocalDateTime().toLocalTime(); 
+                    inactive =resultset.getTimestamp("inactive").toLocalDateTime().toLocalTime(); 
+                    badge = resultset.getString("badge"); 
+                    first = resultset.getString("first"); 
+                    last = resultset.getString("last"); 
+                    middle= resultset.getString("middle"); 
                     
                     HashMap<String, Integer> integers = new HashMap<>();
                     integers.put("id", id);
+                    integers.put("employeeid", employeeid); 
+                    integers.put("department", department); 
+                    integers.put("shift", shift); 
                     
                     HashMap<String, String> strings = new HashMap<>(); 
-                    strings.put("description", description);
+                    strings.put("badge",badge);
+                    strings.put("first", first); 
+                    strings.put("last", last); 
+                    strings.put("middle", middle); 
                     
-                    employee = new Employee(strings, integers);
+                    HashMap<String, LocalTime> time = new HashMap<>(); 
+                    time.put("active", active); 
+                    time.put("inactive", inactive); 
+                    
+                    employee = new Employee(strings, integers, time);
                                         
                 }
                 
@@ -289,7 +307,7 @@ public class TASDatabase {
                     
                     while(resultset.next()) {
                         
-                        employeeID = resultset.getInt("employeeID");
+                        employeeID = resultset.getInt("shiftid");
                         employee = getEmployee(employeeID);
                         
                     }
