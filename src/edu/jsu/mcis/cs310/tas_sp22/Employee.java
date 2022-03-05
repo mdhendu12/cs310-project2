@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Employee 
 {
-    private String badge, first, middle, last; 
+    private String badgeid, firstname, middlename, lastname; 
     private int id, employeetypeid, departmentid, shiftid; 
     private LocalTime active, inactive; 
     
@@ -15,10 +15,10 @@ public class Employee
      this.employeetypeid = i.get("employeetypeid");
      this.departmentid = i.get("department"); 
      this.shiftid = i.get("shift"); 
-     this.badge = s.get("badge"); 
-     this.first = s.get("fist"); 
-     this.middle = s.get("middle"); 
-     this.last = s.get("last"); 
+     this.badgeid = s.get("badge"); 
+     this.firstname = s.get("fist"); 
+     this.middlename = s.get("middle"); 
+     this.lastname = s.get("last"); 
      this.active = l.get("active"); 
      this.inactive = l.get("inactive"); 
  }
@@ -45,22 +45,22 @@ public class Employee
  
  public String getBadge()
  {
-     return badge; 
+     return badgeid; 
  }
  
  public String getFirst()
  {
-     return first; 
+     return firstname; 
  }
  
  public String getMiddle()
  {
-     return middle;
+     return middlename;
  }
  
  public String getLast()
  {
-     return last; 
+     return lastname; 
  }
  
  public LocalTime getActive()
@@ -78,8 +78,8 @@ public class Employee
  public String toString()
  {
      StringBuilder result =  new StringBuilder(); 
-     result.append("#").append(id).append(" (").append(last).append(" ").append(first);
-     result.append(" ").append(middle).append(") : ").append(employeetypeid).append(", : ");
+     result.append("#").append(id).append(" (").append(lastname).append(" ").append(firstname);
+     result.append(" ").append(middlename).append(") : ").append(employeetypeid).append(", : ");
      result.append(departmentid).append(", : ").append(shiftid).append(", : ").append(active); 
      result.append(inactive).append(","); 
      
