@@ -15,7 +15,7 @@ public class Employee
      this.departmentid = i.get("departmentid"); 
      this.shiftid = i.get("shiftid"); 
      this.badgeid = s.get("badgeid"); 
-     this.firstname = s.get("fistname"); 
+     this.firstname = s.get("firstname"); 
      this.middlename = s.get("middlename"); 
      this.lastname = s.get("lastname"); 
      this.active = l.get("active"); 
