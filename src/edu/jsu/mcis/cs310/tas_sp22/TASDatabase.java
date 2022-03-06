@@ -1,8 +1,7 @@
 package edu.jsu.mcis.cs310.tas_sp22;
 import java.sql.*;
-import java.time.LocalTime;
 import java.util.HashMap;
-import java.time.LocalDateTime;
+import java.time.*;
 
 public class TASDatabase {
     
@@ -224,7 +223,7 @@ public class TASDatabase {
         Employee employee = null;
         
         String badgeid, firstname, lastname, middlename;
-        LocalTime active, inactive = null; 
+        LocalTime active, inactive; 
         int employeetypeid, departmentid, shiftid; 
         String query = null;
         ResultSet resultset = null;
@@ -248,18 +247,13 @@ public class TASDatabase {
                     employeetypeid = resultset.getInt("employeetypeid"); 
                     departmentid = resultset.getInt("department"); 
                     shiftid = resultset.getInt("shift"); 
-                    active = resultset.getTimestamp("active").toLocalDateTime().toLocalTime(); 
-                    inactive =resultset.getTimestamp("inactive").toLocalDateTime().toLocalTime(); 
+                    active = resultset.getTimestamp("active").toLocalDateTime(); 
+                    inactive =resultset.getTimestamp("inactive").toLocalDateTime(); 
                     badgeid = resultset.getString("badge"); 
                     firstname = resultset.getString("first"); 
                     lastname = resultset.getString("last"); 
                     middlename= resultset.getString("middle"); 
                     
-                    HashMap<String, Integer> integers = new HashMap<>();
-                    integers.put("id", id);
-                    integers.put("employeetpyeid", employeetypeid); 
-                    integers.put("departmentid", departmentid); 
-                    integers.put("shiftid", shiftid); 
                     
                     HashMap<String, String> strings = new HashMap<>(); 
                     strings.put("badgeid",badgeid);
@@ -267,11 +261,17 @@ public class TASDatabase {
                     strings.put("lastname", lastname); 
                     strings.put("middlename", middlename); 
                     
-                    HashMap<String, LocalTime> time = new HashMap<>(); 
+                    HashMap<String, Integer> integers = new HashMap<>(); 
+                    integers.put("employeetpyeid", employeetypeid); 
+                    integers.put("departmentid", departmentid); 
+                    integers.put("shiftid", shiftid); 
+                    integers.put("id", id);
+                    
+                    HashMap<String, LocalDate> time = new HashMap<>(); 
                     time.put("active", active); 
                     time.put("inactive", inactive); 
                     
-                    employee = new Employee(strings, integers, time);
+                    employee = new Employee(strings, time, integers);
                                         
                 }
                 
