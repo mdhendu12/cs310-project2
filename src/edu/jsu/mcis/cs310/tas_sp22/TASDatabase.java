@@ -245,14 +245,18 @@ public class TASDatabase {
                     
                     id = resultset.getInt("id");
                     employeetypeid = resultset.getInt("employeetypeid"); 
-                    departmentid = resultset.getInt("department"); 
-                    shiftid = resultset.getInt("shift"); 
+                    departmentid = resultset.getInt("departmentid"); 
+                    shiftid = resultset.getInt("shiftid"); 
                     active = resultset.getTimestamp("active").toLocalDateTime().toLocalDate();
-                    badgeid = resultset.getString("badge"); 
-                    firstname = resultset.getString("first"); 
-                    lastname = resultset.getString("last"); 
-                    middlename= resultset.getString("middle"); 
-                    inactive =resultset.getTimestamp("inactive").toLocalDateTime().toLocalDate(); 
+                    badgeid = resultset.getString("badgeid"); 
+                    firstname = resultset.getString("firstname"); 
+                    lastname = resultset.getString("lastname"); 
+                    middlename= resultset.getString("middlename");
+                    try
+                    {
+                         inactive = resultset.getTimestamp("inactive").toLocalDateTime().toLocalDate();
+                    }
+                    catch(Exception e) {inactive = null;} 
                     
                     HashMap<String, String> strings = new HashMap<>(); 
                     strings.put("badgeid",badgeid);
@@ -261,7 +265,7 @@ public class TASDatabase {
                     strings.put("middlename", middlename); 
                     
                     HashMap<String, Integer> integers = new HashMap<>(); 
-                    integers.put("employeetpyeid", employeetypeid); 
+                    integers.put("employeetypeid", employeetypeid); 
                     integers.put("departmentid", departmentid); 
                     integers.put("shiftid", shiftid); 
                     integers.put("id", id);
