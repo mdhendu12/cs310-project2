@@ -12,12 +12,12 @@ public class Employee
  public Employee(HashMap<String, String> s, HashMap<String, LocalDate> l,HashMap<String, Integer> i)
  {
      this.employeetypeid = i.get("employeetypeid");
-     this.departmentid = i.get("department"); 
-     this.shiftid = i.get("shift"); 
-     this.badgeid = s.get("badge"); 
-     this.firstname = s.get("fist"); 
-     this.middlename = s.get("middle"); 
-     this.lastname = s.get("last"); 
+     this.departmentid = i.get("departmentid"); 
+     this.shiftid = i.get("shiftid"); 
+     this.badgeid = s.get("badgeid"); 
+     this.firstname = s.get("fistname"); 
+     this.middlename = s.get("middlename"); 
+     this.lastname = s.get("lastname"); 
      this.active = l.get("active"); 
      this.inactive = l.get("inactive"); 
  }
