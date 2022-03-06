@@ -248,7 +248,7 @@ public class TASDatabase {
                     departmentid = resultset.getInt("departmentid"); 
                     shiftid = resultset.getInt("shiftid"); 
                     active = resultset.getTimestamp("active").toLocalDateTime().toLocalDate();
-                    badgeid = resultset.getString("badge"); 
+                    badgeid = resultset.getString("badgeid"); 
                     firstname = resultset.getString("firstname"); 
                     lastname = resultset.getString("lastname"); 
                     middlename= resultset.getString("middlename"); 
