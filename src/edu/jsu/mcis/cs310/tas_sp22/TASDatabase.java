@@ -271,7 +271,7 @@ public class TASDatabase {
                     integers.put("id", id);
                     
                     HashMap<String, LocalDate> time = new HashMap<>(); 
-                    time.put("active", active); 
+                    time.put("active", active);
                     time.put("inactive", inactive); 
                     
                     employee = new Employee(strings, time, integers);
@@ -310,7 +310,7 @@ public class TASDatabase {
                     
                     while(resultset.next()) {
                         
-                        employeeID = resultset.getInt("shiftid");
+                        employeeID = resultset.getInt("id");
                         employee = getEmployee(employeeID);
                         
                     }
