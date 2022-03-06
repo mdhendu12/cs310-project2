@@ -76,7 +76,7 @@ public class Employee
      result.append("#").append(badgeid).append(" (").append(lastname).append(", ").append(firstname);
      result.append(" ").append(middlename).append("): employeetypeid: ").append(employeetypeid);
      result.append(", departmentid: ").append(departmentid).append(", shiftid: ").append(shiftid); 
-     result.append(shiftid).append(", active: ").append(active).append(", inactive: ");
+     result.append(", active: ").append(active).append(", inactive: ");
      if (inactive == null)
      {
          result.append("none");
