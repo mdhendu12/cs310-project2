@@ -245,13 +245,13 @@ public class TASDatabase {
                     
                     id = resultset.getInt("id");
                     employeetypeid = resultset.getInt("employeetypeid"); 
-                    departmentid = resultset.getInt("department"); 
-                    shiftid = resultset.getInt("shift"); 
+                    departmentid = resultset.getInt("departmentid"); 
+                    shiftid = resultset.getInt("shiftid"); 
                     active = resultset.getTimestamp("active").toLocalDateTime().toLocalDate();
                     badgeid = resultset.getString("badge"); 
-                    firstname = resultset.getString("first"); 
-                    lastname = resultset.getString("last"); 
-                    middlename= resultset.getString("middle"); 
+                    firstname = resultset.getString("firstname"); 
+                    lastname = resultset.getString("lastname"); 
+                    middlename= resultset.getString("middlename"); 
                     inactive =resultset.getTimestamp("inactive").toLocalDateTime().toLocalDate(); 
                     
                     HashMap<String, String> strings = new HashMap<>(); 
