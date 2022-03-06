@@ -223,7 +223,7 @@ public class TASDatabase {
         Employee employee = null;
         
         String badgeid, firstname, lastname, middlename;
-        LocalTime active, inactive; 
+        LocalDate active, inactive; 
         int employeetypeid, departmentid, shiftid; 
         String query = null;
         ResultSet resultset = null;
@@ -247,13 +247,12 @@ public class TASDatabase {
                     employeetypeid = resultset.getInt("employeetypeid"); 
                     departmentid = resultset.getInt("department"); 
                     shiftid = resultset.getInt("shift"); 
-                    active = resultset.getTimestamp("active").toLocalDateTime(); 
-                    inactive =resultset.getTimestamp("inactive").toLocalDateTime(); 
+                    active = resultset.getTimestamp("active").toLocalDateTime().toLocalDate();
                     badgeid = resultset.getString("badge"); 
                     firstname = resultset.getString("first"); 
                     lastname = resultset.getString("last"); 
                     middlename= resultset.getString("middle"); 
-                    
+                    inactive =resultset.getTimestamp("inactive").toLocalDateTime().toLocalDate(); 
                     
                     HashMap<String, String> strings = new HashMap<>(); 
                     strings.put("badgeid",badgeid);
