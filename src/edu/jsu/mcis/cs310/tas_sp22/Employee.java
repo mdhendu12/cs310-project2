@@ -6,12 +6,11 @@ import java.util.HashMap;
 public class Employee 
 {
     private String badgeid, firstname, middlename, lastname; 
-    private int id, employeetypeid, departmentid, shiftid; 
-    private LocalTime active, inactive; 
+    private int employeetypeid, departmentid, shiftid; 
+    private LocalDate active, inactive; 
     
- public Employee(HashMap<String, String> s, HashMap<String, Integer> i, HashMap<String, LocalTime> l)
+ public Employee(HashMap<String, String> s, HashMap<String, LocalDate> l,HashMap<String, Integer> i)
  {
-     this.id = i.get("id");
      this.employeetypeid = i.get("employeetypeid");
      this.departmentid = i.get("department"); 
      this.shiftid = i.get("shift"); 
@@ -23,11 +22,7 @@ public class Employee
      this.inactive = l.get("inactive"); 
  }
  
- public int getId()
- {
-     return id;
- }
- 
+
  public int getEmployeetypeid()
  {
      return employeetypeid;
@@ -63,12 +58,12 @@ public class Employee
      return lastname; 
  }
  
- public LocalTime getActive()
+ public LocalDate getActive()
  {
      return active;
  }
  
- public LocalTime getInactive()
+ public LocalDate getInactive()
  {
      return inactive;
  }
