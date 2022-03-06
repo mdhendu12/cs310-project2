@@ -251,8 +251,12 @@ public class TASDatabase {
                     badgeid = resultset.getString("badgeid"); 
                     firstname = resultset.getString("firstname"); 
                     lastname = resultset.getString("lastname"); 
-                    middlename= resultset.getString("middlename"); 
-                    inactive =resultset.getTimestamp("inactive").toLocalDateTime().toLocalDate(); 
+                    middlename= resultset.getString("middlename");
+                    try
+                    {
+                         inactive = resultset.getTimestamp("inactive").toLocalDateTime().toLocalDate();
+                    }
+                    catch(Exception e) {inactive = null;} 
                     
                     HashMap<String, String> strings = new HashMap<>(); 
                     strings.put("badgeid",badgeid);
@@ -261,7 +265,7 @@ public class TASDatabase {
                     strings.put("middlename", middlename); 
                     
                     HashMap<String, Integer> integers = new HashMap<>(); 
-                    integers.put("employeetpyeid", employeetypeid); 
+                    integers.put("employeetypeid", employeetypeid); 
                     integers.put("departmentid", departmentid); 
                     integers.put("shiftid", shiftid); 
                     integers.put("id", id);
