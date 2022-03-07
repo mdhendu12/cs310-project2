@@ -134,6 +134,8 @@ public class TASDatabase {
         ResultSet resultset = null;
         boolean hasresults;
         
+        /* Queries the database, receives a resultset and organizes the data in the resultset into different hashmaps before creating a shift object */
+        
         try {
             
             if ( connection.isValid(0) ) {
@@ -184,6 +186,8 @@ public class TASDatabase {
     
         public Shift getShift(Badge badgeID) {
         
+        /* Declaration/initialization of variables, shift object, and resultset. */    
+            
         Shift shift = null;
         String ID = badgeID.getId();
         int shiftID;
@@ -191,6 +195,8 @@ public class TASDatabase {
         ResultSet resultset = null;
         PreparedStatement pstmt = null;
         boolean hasresults;
+        
+        /* Queries the database, receives the resultset, then calls getShift() (above) to create a shift object. */
         
         try{
             if (connection.isValid(0)) {
@@ -218,6 +224,7 @@ public class TASDatabase {
         return shift;
         
     }
+        
     public Employee getEmployee(int id) {
         
         Employee employee = null;

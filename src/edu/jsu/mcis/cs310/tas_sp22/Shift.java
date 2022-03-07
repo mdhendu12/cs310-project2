@@ -9,8 +9,7 @@ public class Shift {
     private LocalTime shiftstart, shiftstop, lunchstart, lunchstop, lunchthreshold;
     private Duration shiftduration, lunchduration;
   
-     public Shift(String description, HashMap<String, Integer> integers, HashMap<String, LocalTime> localtimes)
- {
+     public Shift(String description, HashMap<String, Integer> integers, HashMap<String, LocalTime> localtimes) {
      
      this.description = description; 
      this.shiftstart = localtimes.get("shiftstart");
