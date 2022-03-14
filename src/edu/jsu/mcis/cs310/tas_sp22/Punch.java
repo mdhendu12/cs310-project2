@@ -1,6 +1,7 @@
 package edu.jsu.mcis.cs310.tas_sp22;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
@@ -38,6 +39,16 @@ public class Punch {
     }
     
     public void adjust(Shift s) {
+        String day = timestamp.getDayOfWeek().toString();
+        LocalTime time = timestamp.toLocalTime();
+        LocalTime shiftstart = s.getShiftstart();
+        LocalTime adjuster = null;
+        if (!"TIME OUT".equals(eventtypeid.toString()) && !"SATURDAY".equals(day) && !"SUNDAY".equals(day)) {
+            adjustedTS.withHour(adjuster.getHour());
+            adjustedTS.withMinute(adjuster.getMinute());
+            adjustedTS.withSecond(adjuster.getSecond());
+            adjustedTS.withNano(adjuster.getNano());
+        }
         
     }
     
