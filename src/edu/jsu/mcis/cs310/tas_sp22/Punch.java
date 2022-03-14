@@ -37,6 +37,10 @@ public class Punch {
         adjustmenttype = null;
     }
     
+    public void adjust(Shift s) {
+        
+    }
+    
     @Override
     public String toString() {
         return printOriginal();
